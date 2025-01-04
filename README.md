@@ -1,6 +1,6 @@
 # JavascriptLearning_001
 
-Learning/practicing Javascript with the book<br>
+Learning/practising Javascript with the book<br>
 [<cite>Eloquent JavaScript 4th edition (2024)</cite> written by <cite>Marijn Haverbeke</cite>](https://eloquentjavascript.net/index.html).
 
 ---
@@ -12,8 +12,8 @@ Learning/practicing Javascript with the book<br>
 ### (Part 1: Language)
 
 1. Values, Types, and Operators
-2. Program Structure
-3. Functions
+2. [Program Structure](./jsMHch02/)
+3. [Functions](./jsMHch03/)
 4. Data Structures: Objects and Arrays
 5. Higher-order Functions
 6. The Secret Life of Objects

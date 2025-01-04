@@ -15,30 +15,14 @@
 	// 	],
 	// 	"description": "Log output to console"
 	// }
-
-	"lsnip:: exercise readme": {
-		"scope": "md, markdown",
-		"prefix": "exrc",
+	"lsnip:: script execution time": {
+		"scope": "js, javascript",
+		"prefix": "executionTime",
 		"body": [
-			"## jsMHch$1Exrc$2",
-			"",
-			"$3",
-			"",
-			"### Source codes: ",
-			"[jsMHch$1Exrc$2.js](jsMHch$1Exrc$2.js)",
-			"",
-			"### Execution logs:",
-			"",
-			"```",
-			"",
-			"```",
-			"",
-			"---",
-			"---",
-			"",
-			"",
+			"console.time(\"ExecutionTime$1\");",
+			"$2",
+			"console.timeEnd(\"ExecutionTime$1\");"
 		],
-		"description": "Add exercise template to markdown file."
-	},
-
+		"description": "For logging execution time of the javascript."
+	}
 }

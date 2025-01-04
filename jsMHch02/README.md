@@ -1,4 +1,4 @@
-# jsMHch02
+# jsMHch02: Program Structure
 
 ## jsMHch02Exrc001
 
