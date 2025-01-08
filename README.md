@@ -27,7 +27,7 @@ v18.19.0
 3. [Functions](./jsMHch03/)
 4. [Data Structures: Objects and Arrays](./jsMHch04/)
 5. [Higher-order Functions](./jsMHch05/)
-6. The Secret Life of Objects
+6. [The Secret Life of Objects](./jsMHch06/)
 7. Project: A Robot
 8. Bugs and Errors
 9. Regular Expressions
