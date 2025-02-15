@@ -1,5 +1,3 @@
-console.time("ExecutionTime");
-
 function deepEqual(obj1, obj2) {
     let cat1 = ["number", "string", "boolean"];
 
@@ -84,5 +82,3 @@ console.log(deepEqual(obj1, obj2));
 console.log(deepEqual(obj1, obj3));
 
 console.log("------------------------------")
-
-console.timeEnd("ExecutionTime");

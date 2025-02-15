@@ -27,6 +27,22 @@ function nth(list, index) {
     return arr[index];
 }
 
+/**
+ * recursive version of nth
+ */
+/*
+function nth(list, n) {
+    if (list) {
+        if (n === 0) {
+            return list.value;
+        } else {
+            return nth(list.rest, n - 1);
+        }
+    } else {
+        return undefined;
+    }
+}*/
+
 console.log(arrayToList([10, 20]));
 console.log(listToArray({ value: 10, rest: { value: 20, rest: { value: 32, rest: null } } }));
 console.log(prepend(10, prepend(20, null)));
