@@ -1,3 +1,5 @@
+console.time("ExecutionTime");
+
 var roads = [
   "Alice's House-Bob's House", "Alice's House-Cabin",
   "Alice's House-Post Office", "Bob's House-Town Hall",
@@ -154,3 +156,7 @@ function compareRobots(robot1, memory1, robot2, memory2) {
 }
 
 compareRobots(routeRobot, [], goalOrientedRobot, []);
+
+
+console.log("----------------------")
+console.timeEnd("ExecutionTime");
