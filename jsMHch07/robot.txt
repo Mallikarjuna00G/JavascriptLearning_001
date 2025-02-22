@@ -1,0 +1,121 @@
+Project: Robot
+  MEADOWFIELD
+  The village of Meadowfield isn't very big.
+  It consists of 11 places with 14 roads between them.
+  ┌─────────┬───────────────────────────────┐
+  │ (index) │ Values                        │
+  ├─────────┼───────────────────────────────┤
+  │ 0       │ "Alice's House-Bob's House"   │
+  │ 1       │ "Alice's House-Cabin"         │
+  │ 2       │ "Alice's House-Post Office"   │
+  │ 3       │ "Bob's House-Town Hall"       │
+  │ 4       │ "Daria's House-Ernie's House" │
+  │ 5       │ "Daria's House-Town Hall"     │
+  │ 6       │ "Ernie's House-Grete's House" │
+  │ 7       │ "Grete's House-Farm"          │
+  │ 8       │ "Grete's House-Shop"          │
+  │ 9       │ 'Marketplace-Farm'            │
+  │ 10      │ 'Marketplace-Post Office'     │
+  │ 11      │ 'Marketplace-Shop'            │
+  │ 12      │ 'Marketplace-Town Hall'       │
+  │ 13      │ 'Shop-Town Hall'              │
+  └─────────┴───────────────────────────────┘
+  The network of roads in the village forms a graph.
+  --> A graph is a collection of points (places in the village) with lines between them (roads).
+  This graph will be the world that our robot moves through.
+  
+  The array of strings is not very easy to work with.
+  What we are interested in is the destinations that we can reach from a given place.
+  In other words, to know that a point (source) is connected with how many other points (destinations).
+  
+  Right now, the data that we have is a list of roads. Let us convert that to a data structure that tells us,
+  --> from each place,
+  --> what other places can be reached.
+  function::buildGraph
+  
+  Finally, we have the data structure 'roadGraph'.
+  ┌───────────────┬─────────────────┬─────────────────┬───────────────┬─────────────┐
+  │ (index)       │ 0               │ 1               │ 2             │ 3           │
+  ├───────────────┼─────────────────┼─────────────────┼───────────────┼─────────────┤
+  │ Alice's House │ "Bob's House"   │ 'Cabin'         │ 'Post Office' │             │
+  │ Bob's House   │ "Alice's House" │ 'Town Hall'     │               │             │
+  │ Cabin         │ "Alice's House" │                 │               │             │
+  │ Post Office   │ "Alice's House" │ 'Marketplace'   │               │             │
+  │ Town Hall     │ "Bob's House"   │ "Daria's House" │ 'Marketplace' │ 'Shop'      │
+  │ Daria's House │ "Ernie's House" │ 'Town Hall'     │               │             │
+  │ Ernie's House │ "Daria's House" │ "Grete's House" │               │             │
+  │ Grete's House │ "Ernie's House" │ 'Farm'          │ 'Shop'        │             │
+  │ Farm          │ "Grete's House" │ 'Marketplace'   │               │             │
+  │ Shop          │ "Grete's House" │ 'Marketplace'   │ 'Town Hall'   │             │
+  │ Marketplace   │ 'Farm'          │ 'Post Office'   │ 'Shop'        │ 'Town Hall' │
+  └───────────────┴─────────────────┴─────────────────┴───────────────┴─────────────┘
+  To display it in other (normal object) format:
+  [Object: null prototype] {
+    "Alice's House": [ "Bob's House", 'Cabin', 'Post Office' ],
+    "Bob's House": [ "Alice's House", 'Town Hall' ],
+    Cabin: [ "Alice's House" ],
+    'Post Office': [ "Alice's House", 'Marketplace' ],
+    'Town Hall': [ "Bob's House", "Daria's House", 'Marketplace', 'Shop' ],
+    "Daria's House": [ "Ernie's House", 'Town Hall' ],
+    "Ernie's House": [ "Daria's House", "Grete's House" ],
+    "Grete's House": [ "Ernie's House", 'Farm', 'Shop' ],
+    Farm: [ "Grete's House", 'Marketplace' ],
+    Shop: [ "Grete's House", 'Marketplace', 'Town Hall' ],
+    Marketplace: [ 'Farm', 'Post Office', 'Shop', 'Town Hall' ]
+  }
+  Given an array of edges, buildGraph creates a 'map' object that,
+  --> for each node,
+  --> stores an array of connected nodes.
+  It uses the 'split' method to go
+  --> from the road strings -- which have the form 'Start-End'
+  --> to two-element arrays containing the start and end as separate strings
+  
+  THE TASK
+  Our robot will be moving around the village.
+  There are parcels in various places, each addressed to some other place.
+  The robot picks up parcels when it comes across them and delivers them when it arrives at their destinations.
+  
+  The automation must decide, at each point, where to go next.
+  It has finished its task when all parcels have been delivered.
+  
+  To be able to simulate this process, we must define a virtual world that can describe it.
+  --> This model tells us where the robot is and where the parcels are.
+  --> When the robot has decided to move somehere, we need to update the model to reflect the new situation.
+  
+  If you are thinking in terms of object-oriented programming, your first impulse might be to start defining objects for the various elements in the world: 
+  --> a class for the robot, 
+  --> one for the parcel, 
+  --> may be one for the places. 
+  These could then hold properties that describe their current state, such as 
+  --> the pile of parcels at a location, which we could change when updating the world.
+  
+  This is wrong. At least, it usually is. 
+  The fact that something sounds like an object does not automatically mean that it should be an object in your program. 
+  Reflexively writing classes for every concept in your application tends to leave you with a collecion of interconnected objects that each have their own internal, changing state. 
+  Such programs are often hard to understand and thus easy to break.
+  
+  Instead, let's condense the village's state down to the minimal set of values that define it.
+  --> There's the robot's current location
+  --> and the collection of undelivered parcels, each of which has a current location and a destination address.
+  That's it.
+  
+  While we are at it, let's make it so that we don't change this state when the robot moves but rather compute a new state for the situation after the move.
+  
+  The 'move' method is where the action happens.
+  It first checks whether there is a road going from the current place to the destination, and if not, it returns the old state, since this is not a valid move.
+  
+  Next, the method creates a new state with the destination as the robot's new place. It also needs to create a new set of parcels -- parcels that the robot is carrying (that are at the robot's current place) need to be moved along to the new place.
+  And parcels that are addressed to the new place need to be delivered--that is, they need to be removed from the set of undelivered parcels.
+  The call to 'map' takes care of the moving, and the call to 'filter' does the delivering.
+  
+  Parcel objects aren't changed when they are moved but re-created.
+  The 'move' method gives a new village state but leaves the old one entirely intact.
+  
+  Alice's House
+  [
+    { place: "Alice's House", address: "John's House" },
+    { place: "Gret's House", address: "Alice's House" }
+  ]
+  Post Office
+  The move causes the parcel to be delivered, which is reflected in the next state.
+  But the initial state still describes the situation where the robot is at the post office and the parcel is undelivered.

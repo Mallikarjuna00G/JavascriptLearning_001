@@ -133,7 +133,5 @@ console.log(first.place);
 
 console.log("The move causes the parcel to be delivered, which is reflected in the next state.\nBut the initial state still describes the situation where the robot is at the post office and the parcel is undelivered.");
 
-console.log("SIMULATION");
-
 
 console.groupEnd();
